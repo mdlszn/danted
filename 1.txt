@@ -1,0 +1,11 @@
+sudo su root
+yum -y install wget
+__set_config() {
+    firewall-cmd --state
+    systemctl stop firewalld.service
+    systemctl disable firewalld.service
+    sed -i 's,^SELINUX=.*$,SELINUX=disabled,' /etclinux/config
+}
+__set_config
+wget --no-check-certificate https://raw.github.com/Lozy/danted/master/install.sh -O install.sh
+bash install.sh  --port=661 --user=irqm --passwd=irqm.com
